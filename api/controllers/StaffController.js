@@ -8,6 +8,7 @@
 module.exports = {
 
 	all: function(req, res){
+      
         Staff.find({
             limit: 3
         }).exec(function afterFind(err, staffs) {
@@ -19,16 +20,17 @@ module.exports = {
         
             return res.json(staffs)
         });    
+    
     },
 
     perpage: function(req, res){
         
         var numOfStaffPerPage = req.params.perpage;
+        var numberOfPage = req.params.pages;  
 
-        Staff.find({
-            skip:0,
-            limit: numOfStaffPerPage,
-            sort: 'createdAt DESC'
+        Staff.find().paginate({
+            page: numberOfPage,
+            limit: numOfStaffPerPage
         }).exec(function (err, staffs){
             if (err) {
                 return res.serverError(err);
