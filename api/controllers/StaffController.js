@@ -28,7 +28,7 @@ module.exports = {
         Staff.find({
             skip:0,
             limit: numOfStaffPerPage,
-            sort: 'createAt DESC'
+            sort: 'createdAt DESC'
         }).exec(function (err, staffs){
             if (err) {
                 return res.serverError(err);

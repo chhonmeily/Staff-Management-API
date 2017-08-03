@@ -46,7 +46,7 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
   'GET /staff/all': 'StaffController.all',
-  'GET /staff/all/:pages/:perpage': 'StaffController.perpage'
+  'GET /staff/:pages/:perpage': 'StaffController.perpage'
 
 
 };
