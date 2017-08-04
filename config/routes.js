@@ -45,8 +45,11 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
+  'POST /signup':'StaffController.signup',
+  'PUT /staff/:staffid': 'StaffController.update',
   'GET /staff/all': 'StaffController.all',
-  'GET /staff/:pages/:perpage': 'StaffController.perpage'
+  'GET /staff/:pages': 'StaffController.perpage',
+  'GET /staff/:pages/:perpage': 'StaffController.perpage',
 
 
 };

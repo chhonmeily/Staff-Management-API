@@ -46,7 +46,8 @@ module.exports = {
     },
 
     leave: {
-      collection: 'Leave'
+      collection: 'Leave',
+      via: 'requested_by'
     },
 
     track_time: {
