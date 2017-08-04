@@ -125,9 +125,14 @@ module.exports = {
                         error: function(err) {
                             return res.serverError(err);
                         },
-                        success: function(password) {
-                            staff.password = password;
-                            res.json(200, {msg:"You have changed your password successfully"});
+                        success: function(encryptedPassword) {
+                            staff.password = encryptedPassword;
+                            staff.save(function(err){
+                                if (err) {
+                                    res.serverError(err);
+                                }
+                                res.json(200, staff);    
+                            });
                         }
                     });
                 },
