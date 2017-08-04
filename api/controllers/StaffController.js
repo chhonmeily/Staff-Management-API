@@ -103,10 +103,8 @@ module.exports = {
                 return res.serverError(err);
             }
             var oldEncryptedPassword = staff.password;
-            //check if the password is match with existing using compare function
             var oldPasswordAttempt = req.body.old_password;
-            console.log(oldPasswordAttempt);
-            console.log(oldEncryptedPassword);
+            //check if the password is match with existing using compare function
             Passwords.checkPassword({
                 passwordAttempt: oldPasswordAttempt,
                 encryptedPassword: oldEncryptedPassword,
