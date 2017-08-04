@@ -47,6 +47,7 @@ module.exports.routes = {
   ***************************************************************************/
   'POST /signup':'StaffController.signup',
   'PUT /staff/:staffid': 'StaffController.update',
+  'PUT /staff/changepassword/:staffid': 'StaffController.changepassword',
   'GET /staff/all': 'StaffController.all',
   'GET /staff/:pages': 'StaffController.perpage',
   'GET /staff/:pages/:perpage': 'StaffController.perpage',

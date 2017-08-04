@@ -34,7 +34,7 @@ module.exports = {
                         // If this is NOT a waterline validation error, it is a mysterious error indeed.
                         var isWLValidationErr = _.isObject(err) && _.isObject(err.invalidAttributes);
                         if (!isWLValidationErr) {
-                        return res.serverError(err);
+                            return res.serverError(err);
                         }
 
                         // Otherwise, it must be a waterline validation error.
@@ -42,7 +42,7 @@ module.exports = {
                         // If it doesn't contain a problem with the password, then just handle is
                         // using `res.badRequest()` like normal.
                         if (!_.isArray(err.invalidAttributes.password)) {
-                        return res.badRequest(err);
+                            return res.badRequest(err);
                         }
 
                         // Otherwise, something was wrong with the provided encrypted password.
@@ -70,15 +70,14 @@ module.exports = {
     },
 
     update: function (req, res) {
-        var staffID = req.params.staffid;
+        var staffId = req.params.staffid;
         Staff.find({
-            id: staffID
+            id: staffId
         }).exec(function(err, staff){
             if (err) {
                 res.serverError(err);
             }
             var staffFound = staff.pop();
-            
             staffFound.username = req.body.username;
             staffFound.full_name = req.body.full_name;
             staffFound.nick_name = req.body.nick_name;
@@ -91,16 +90,51 @@ module.exports = {
                 }
                 res.json(200, staffFound);    
             });
-            
         });
     },
 
-    changePassword: function(req, res) {
+    changepassword: function(req, res) {
 
-    },
-
-    delete: function (req, res) {
-
+        var staffId = req.params.staffid;
+        Staff.findOne({
+            id: staffId
+        }).exec(function(err, staff){
+            if (err) {
+                return res.serverError(err);
+            }
+            var oldEncryptedPassword = staff.password;
+            //check if the password is match with existing using compare function
+            var oldPasswordAttempt = req.body.old_password;
+            console.log(oldPasswordAttempt);
+            console.log(oldEncryptedPassword);
+            Passwords.checkPassword({
+                passwordAttempt: oldPasswordAttempt,
+                encryptedPassword: oldEncryptedPassword,
+            }).exec({
+               
+                error: function (err) {
+                    return res.serverError(err);
+                },
+               
+                incorrect: function () {
+                    res.json({ msg: "You have entered a wrong password. Please enter your old password again." });
+                },
+               
+                success: function () {
+                    Passwords.encryptPassword({
+                        password: req.body.new_password,
+                    }).exec({
+                        error: function(err) {
+                            return res.serverError(err);
+                        },
+                        success: function(password) {
+                            staff.password = password;
+                            res.json(200, {msg:"You have changed your password successfully"});
+                        }
+                    });
+                },
+            });
+        });
     },
 
 	all: function(req, res){
