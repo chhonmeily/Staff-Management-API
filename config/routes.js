@@ -52,7 +52,7 @@ module.exports.routes = {
   'POST /signup':'StaffController.signup',
   'PUT /staff/:staffid': 'StaffController.update',
   'PUT /staff/changepassword/:staffid': 'StaffController.changepassword',
-  'GET /staff/all': 'StaffController.all',
+  'GET /staff/index': 'StaffController.index',
   'GET /staff/:pages': 'StaffController.perpage',
   'GET /staff/:pages/:perpage': 'StaffController.perpage',
   'GET /staff/profile/:staffid': 'StaffController.profile',
@@ -61,11 +61,12 @@ module.exports.routes = {
   * Leave ROUTE 
   **/
   'POST /leave': 'LeaveController.create',
+  'POST /leave/search':'LeaveController.search',
   'PUT /leave/:leaveid': 'LeaveController.update',
-  'POST /leave/byday':'LeaveController.byday',
-  // 'GET /leaeve/all': 'LeaveController.all',
-  // 'PUT /leaeve/:leaveid': 'LeaveController.update_leave',
-  // 'DELETE /leaeve/:leaveid': 'LeaveController.delete'
+  'GET /leave': 'LeaveController.index',
+  'POST /leave/getbydate': 'LeaveController.getbydate',
+  // 'PUT /leave/:leaveid': 'LeaveController.update',
+  // 'DELETE /leave/:leaveid': 'LeaveController.delete'
 
 
 };

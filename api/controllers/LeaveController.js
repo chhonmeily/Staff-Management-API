@@ -6,16 +6,35 @@
  */
 
 module.exports = {
+  
+  index: function(req, res){
+    Leave.find({})
+    .populate('requested_by')
+    .exec(function afterFind(err, leaves) {
+      if (err) {
+        return res.serverError(err);
+      }
+      return res.json(leaves);
+    });
+  },
+
   create: function(req, res) {
+    var option = {
+      start_date: req.param("start_date"),
+      end_date: req.param("end_date")
+    };
+    var interval = "days";
     Leave.create({
       leave_type: req.param("leave_type"),
       reason: req.param("reason"),
       start_date: req.param("start_date"),
       end_date: req.param("end_date"),
-      duration: req.param("duration"),
+      duration: CommonService.calculateDuration(option,interval),
       requested_by: req.param("requested_by"),
       approved_by: req.param("approved_by")
-    }).exec(function(err, newLeave){
+    })
+    .exec(function(err, newLeave){
+
       if (err) {
         return res.serverError(err);
       }
@@ -30,7 +49,7 @@ module.exports = {
         id: leaveId
     }).exec(function(err, leave){
       if (err) {
-        res.serverError(err);
+        return res.serverError(err);
       }
       var leaveFound = leave.pop();
       leaveFound.leave_type = req.body.leave_type;
@@ -42,19 +61,43 @@ module.exports = {
       leaveFound.approved_by = req.body.approved_by;
       leaveFound.save(function(err){
         if (err) {
-          res.serverError(err);
+          return res.serverError(err);
         }
         res.json(200, leaveFound);
       });
     });
   },
 
-  byday: function(req, res) {
-    var dayprovided
-    var leaveid = req.params.leaveid;
-    Leave.find({}).where({}).exec(function(err, leave){
-      res.json(200, leave);
+  search: function(req, res) {
+    var queries = req.param("queries");
+    Leave.find(queries).exec(function(err, leaves){
+      if(err){
+        return res.serverError(err);
+      }
+      res.send(leaves);
+    });  
+  },
+
+  getbydate: function(req, res) {
+    var data = req.body;
+    var queries = {
+      from_date: data.from_date,
+      to_date: data.to_date
+    };
+    Leave.find({
+      start_date: { 
+        '>': data.from_date,
+        '<': data.to_date 
+      }
+    })
+    .populate("requested_by")
+    .exec(function(err, leaves){
+      if (err) {
+        return res.serverError(err);
+      }
+      res.json(200, leaves);
     });
   }
+
 };
 
