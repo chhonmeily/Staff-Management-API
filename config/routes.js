@@ -45,12 +45,27 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
+  
+  /**
+  * Staff ROUTE 
+  **/
   'POST /signup':'StaffController.signup',
   'PUT /staff/:staffid': 'StaffController.update',
   'PUT /staff/changepassword/:staffid': 'StaffController.changepassword',
   'GET /staff/all': 'StaffController.all',
   'GET /staff/:pages': 'StaffController.perpage',
   'GET /staff/:pages/:perpage': 'StaffController.perpage',
+  'GET /staff/profile/:staffid': 'StaffController.profile',
+
+  /**
+  * Leave ROUTE 
+  **/
+  'POST /leave': 'LeaveController.create',
+  'PUT /leave/:leaveid': 'LeaveController.update',
+  'POST /leave/byday':'LeaveController.byday',
+  // 'GET /leaeve/all': 'LeaveController.all',
+  // 'PUT /leaeve/:leaveid': 'LeaveController.update_leave',
+  // 'DELETE /leaeve/:leaveid': 'LeaveController.delete'
 
 
 };
