@@ -51,7 +51,7 @@ module.exports = {
     },
 
     track_time: {
-      collection: 'TrackingTime'
+      collection: 'Tracktime'
     }
 
   }

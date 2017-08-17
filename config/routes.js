@@ -65,8 +65,7 @@ module.exports.routes = {
   'PUT /leave/:leaveid': 'LeaveController.update',
   'GET /leave': 'LeaveController.index',
   'POST /leave/getbydate': 'LeaveController.getbydate',
-  // 'PUT /leave/:leaveid': 'LeaveController.update',
-  // 'DELETE /leave/:leaveid': 'LeaveController.delete'
+  'POST /worktime': 'WorktimeController.index',
 
 
 };
