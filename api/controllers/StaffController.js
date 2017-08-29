@@ -137,6 +137,7 @@ module.exports = {
     Staff.find({
       limit: 3
     })
+    .populate('track_time')
     .exec(function afterFind(err, staffs) {
       if (err) {
         // uh oh

@@ -23,14 +23,9 @@ module.exports = {
     duration: {
       type: 'integer'
     },
-
-    break: {
-      type: 'date'
-    },
     
     status: {
-      type: 'boolean',
-      defaulTo: false
+      type: 'string'
     }
   }
 };

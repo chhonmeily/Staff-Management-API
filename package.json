@@ -24,10 +24,13 @@
     "rc": "1.0.1",
     "sails": "~0.12.13",
     "sails-disk": "~0.10.9",
-    "sails-mongo": "^0.12.2"
+    "sails-mongo": "^0.12.2",
+    "swagger-client": "^3.0.20"
   },
   "scripts": {
     "debug": "node debug app.js",
+    "swagger-build": "swagger-codegen generate -i api/swagger/swagger.yaml -l swagger -o assets/docs/",
+    "swagger-build-linux": "java -jar swagger-codegen-cli.jar generate -i api/swagger/swagger.yaml -l swagger -o assets/docs/",
     "start": "node app.js"
   },
   "main": "app.js",

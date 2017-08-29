@@ -1,0 +1,159 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "API documentation for the test-project.",
+    "version" : "1.0.0",
+    "title" : "Test Project"
+  },
+  "host" : "localhost:1337",
+  "basePath" : "/",
+  "schemes" : [ "http" ],
+  "paths" : {
+    "/signup" : {
+      "post" : {
+        "tags" : [ "staff" ],
+        "summary" : "Create staff collection in database",
+        "description" : "Prior to calling this endpoint, make sure that you have all the required data.",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Body payload.",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/StaffPayload"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Created Success.",
+            "schema" : {
+              "$ref" : "#/definitions/newStaff"
+            }
+          },
+          "400" : {
+            "description" : "Invalid request error response",
+            "schema" : {
+              "$ref" : "#/definitions/400Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "StaffPayload" : {
+      "type" : "object",
+      "required" : [ "email", "full_name", "password", "phone_number", "username" ],
+      "properties" : {
+        "username" : {
+          "type" : "string",
+          "description" : "Username for login authentication."
+        },
+        "full_name" : {
+          "type" : "string",
+          "description" : "Full name for register and displaying on profile."
+        },
+        "nick_name" : {
+          "type" : "string",
+          "description" : "Nick name for displaying purpose only. Not required."
+        },
+        "phone_number" : {
+          "type" : "string",
+          "description" : "Phnone number for registering process."
+        },
+        "email" : {
+          "type" : "string",
+          "description" : "Email is needed for sending info regarding to account security."
+        },
+        "password" : {
+          "type" : "string",
+          "description" : "Password is neeed for storing hashkey code to use back in pplugin."
+        },
+        "role" : {
+          "type" : "string",
+          "description" : "Role user is from user input select only 1 of 3."
+        }
+      },
+      "title" : "Staff Information Body payload.",
+      "description" : "Staff Information Body payload.",
+      "example" : {
+        "username" : "meilychhon",
+        "full_name" : "Meily Chhon",
+        "nick_name" : "Martin",
+        "phone_number" : 85515987005,
+        "email" : "chhonmeily@gmail.com",
+        "password" : "015-984-005",
+        "role" : "Staff"
+      }
+    },
+    "newStaff" : {
+      "type" : "object",
+      "properties" : {
+        "success" : {
+          "type" : "boolean",
+          "description" : "Success or not."
+        },
+        "result" : {
+          "$ref" : "#/definitions/newStaffInfo"
+        },
+        "code" : {
+          "type" : "integer",
+          "description" : "Status code of request."
+        }
+      },
+      "title" : "Staff Information response.",
+      "description" : "Staff Information response.",
+      "example" : {
+        "success" : true,
+        "result" : { },
+        "code" : 200,
+        "error" : null
+      }
+    },
+    "newStaffInfo" : {
+      "type" : "object",
+      "properties" : {
+        "username" : {
+          "type" : "string",
+          "description" : "Username for login authentication."
+        },
+        "full_name" : {
+          "type" : "string",
+          "description" : "Full name for register and displaying on profile."
+        },
+        "nick_name" : {
+          "type" : "string",
+          "description" : "Nick name for displaying purpose only. Not required."
+        },
+        "phone_number" : {
+          "type" : "string",
+          "description" : "Phnone number for registering process."
+        },
+        "email" : {
+          "type" : "string",
+          "description" : "Email is needed for sending info regarding to account security."
+        },
+        "password" : {
+          "type" : "string",
+          "description" : "Password is neeed for storing hashkey code to use back in pplugin."
+        },
+        "role" : {
+          "type" : "string",
+          "description" : "Role user is from user input select only 1 of 3."
+        }
+      },
+      "title" : "Staff info.",
+      "description" : "Staff info."
+    }
+  },
+  "responses" : {
+    "400ErrorResponse" : {
+      "description" : "Invalid request error response",
+      "schema" : {
+        "$ref" : "#/definitions/400Error"
+      }
+    }
+  }
+}

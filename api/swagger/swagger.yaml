@@ -1,0 +1,141 @@
+swagger: '2.0'
+
+info:
+  version: 1.0.0
+  title: Test Project
+  description: API documentation for the test-project.
+
+schemes:
+  - http
+host: localhost:1337
+basePath: /
+
+paths:
+
+  /signup:
+    post:
+      tags:
+        - staff
+      summary: Create staff collection in database
+      description: Prior to calling this endpoint, make sure that you have all the required data.
+      consumes:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          description: Body payload.
+          required: true
+          schema:
+            $ref: '#/definitions/StaffPayload'
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Created Success.
+          schema:
+            $ref: '#/definitions/newStaff'
+
+        400:
+          $ref: '#/responses/400ErrorResponse'
+
+
+
+definitions:
+
+  StaffPayload:
+    title: Staff Information Body payload.
+    description: Staff Information Body payload.
+    type: object
+    required:
+      - username
+      - full_name
+      - phone_number
+      - email
+      - password
+    properties:
+      username:
+        type: string
+        description: Username for login authentication.
+      full_name:
+        type: string
+        description: Full name for register and displaying on profile.
+      nick_name:
+        type: string
+        description: Nick name for displaying purpose only. Not required.
+      phone_number:
+        type: string
+        description: Phnone number for registering process. 
+      email:
+        type: string
+        description: Email is needed for sending info regarding to account security.
+      password:
+        type: string
+        description: Password is neeed for storing hashkey code to use back in pplugin.
+      role:
+        type: string
+        description: Role user is from user input select only 1 of 3.
+    example:
+      username: meilychhon
+      full_name: Meily Chhon
+      nick_name: Martin
+      phone_number: +85515987005
+      email: chhonmeily@gmail.com
+      password: 015-984-005
+      role: Staff
+
+  newStaff:
+    title: Staff Information response.
+    description: Staff Information response.
+    type: object
+    properties:
+      success:
+        type: boolean
+        description: Success or not.
+      result:
+        $ref: '#/definitions/newStaffInfo'
+      code:
+        type: integer
+        description: Status code of request.
+      error:
+        type:
+          - 'null'
+          - string
+        description: Error message if any.
+    example:
+      success: true
+      result: {}
+      code: 200
+      error: null
+
+  newStaffInfo:
+    title: Staff info.
+    description: Staff info.
+    type: object
+    properties:
+      username:
+        type: string
+        description: Username for login authentication.
+      full_name:
+        type: string
+        description: Full name for register and displaying on profile.
+      nick_name:
+        type: string
+        description: Nick name for displaying purpose only. Not required.
+      phone_number:
+        type: string
+        description: Phnone number for registering process. 
+      email:
+        type: string
+        description: Email is needed for sending info regarding to account security.
+      password:
+        type: string
+        description: Password is neeed for storing hashkey code to use back in pplugin.
+      role:
+        type: string
+        description: Role user is from user input select only 1 of 3.
+
+responses:
+  400ErrorResponse:
+    description: Invalid request error response
+    schema:
+      $ref: '#/definitions/400Error'
