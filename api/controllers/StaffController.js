@@ -165,17 +165,17 @@ module.exports = {
   },
 
   profile: function(req, res) {
-    Staff.find(
+    Staff.findOne(
       {
         id: req.params.staffid
       }
     )
     .populate("leave")
-    .exec(function(err, staffs){
+    .exec(function(err, staff){
       if (err) {
         return res.serverError(err);
       }
-      return res.json(200, staffs);
+      return res.json(200, staff);
     });
   }
 };

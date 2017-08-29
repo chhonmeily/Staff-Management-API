@@ -70,5 +70,11 @@ module.exports.routes = {
   'GET /tracktime': 'TracktimeController.index',
   'GET /tracktime/:staffid': 'TracktimeController.index',
 
+  /**
+  * Authentication ROUTE 
+  **/
+  'GET /login': 'AuthController.login',
+  'POST /login': 'AuthController.process',
+  'GET /logout': 'AuthController.logout',
 
 };
