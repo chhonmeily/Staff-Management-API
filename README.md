@@ -1,4 +1,4 @@
-# test-project
+# Staff Management Sails JS API 
 
 a [Sails](http://sailsjs.org) application
 
